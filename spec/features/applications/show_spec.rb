@@ -10,6 +10,24 @@ RSpec.describe 'the application show page' do
 
     expect(page).to have_content 'Ms. Frizzle'
   end
+
+  it 'shows the full address of the applicant' do
+    visit "/applications/#{@app_1.id}"
+
+    expect(page).to have_content '1 Magic Schoolbus Rd, Walkerville, MD, 01010'
+  end
+
+  it 'shows the description given by applicant' do
+    visit "/applications/#{@app_1.id}"
+
+    expect(page).to have_content 'Because I am a boss.'
+  end
+
+  it 'shows the status of the application' do
+    visit "/applications/#{@app_1.id}"
+
+    expect(page).to have_content 'Application status: In Progress'
+  end
 end
 #
 # As a visitor
