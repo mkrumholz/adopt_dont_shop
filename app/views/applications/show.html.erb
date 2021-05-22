@@ -3,3 +3,10 @@
 <p>Address: <%= @application.address %></p>
 <p>Summary statement: <%= @application.description %></p>
 <p>Application status: <%= @application.display_status %></p>
+
+<p>Pets applied for:</p>
+<ul>
+  <% @application.pets.each do |pet| %>
+    <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
+  <% end %>
+</ul>
