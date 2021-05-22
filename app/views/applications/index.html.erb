@@ -1,0 +1,5 @@
+<h1>All Applications</h1>
+
+<% @applications.each do |application| %>
+  <h3><a href="/applications/<%= application.id %>"><%= application.name %></a></h3>
+<% end %>
