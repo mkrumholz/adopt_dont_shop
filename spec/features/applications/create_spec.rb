@@ -13,10 +13,10 @@ RSpec.describe 'new application view' do
 
       expect(page).to have_content 'New Application'
       expect(find('form')).to have_content 'Name'
-      expect(find('form')).to have_content 'Street Address'
+      expect(find('form')).to have_content 'Street address'
       expect(find('form')).to have_content 'City'
       expect(find('form')).to have_content 'State'
-      expect(find('form')).to have_content 'Zip Code'
+      expect(find('form')).to have_content 'Zip code'
       expect(find('form')).to have_content 'Why would you make a good home for a new pet?'
     end
   end
@@ -27,11 +27,11 @@ RSpec.describe 'new application view' do
         visit '/applications/new'
 
         fill_in 'Name', with: 'Ms. Frizzle'
-        fill_in 'Street Address', with: '1 Magic Schoolbus Rd'
+        fill_in 'Street address', with: '1 Magic Schoolbus Rd'
         fill_in 'City', with: 'Walkerville'
-        choose :state, option: 'MD'
-        fill_in 'Zip Code', with: 01010
-        fill_in 'Why would you make a good home for a new pet?', with: 'Because I am a boss.'
+        select 'Maryland', from: :state
+        fill_in 'Zip code', with: 01010
+        fill_in :description, with: 'Because I am a boss.'
         click_button 'Save'
 
         # expect(current_path).to eq "/applications/#{\/d+\}"

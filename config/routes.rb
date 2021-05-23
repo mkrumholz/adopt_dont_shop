@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get '/', to: 'application#welcome'
+  root 'application#welcome'
+
+  resources :applications
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
-  get '/applications', to: 'applications#index'
-  get '/applications/new', to: 'applications#new'
-  get '/applications/:id', to: 'applications#show'
+  # get '/applications', to: 'applications#index'
+  # get '/applications/new', to: 'applications#new'
+  # get '/applications/:id', to: 'applications#show'
 end
