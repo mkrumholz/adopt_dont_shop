@@ -33,7 +33,7 @@ pet_4 = shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: 
 pet_5 = shelter_3.pets.create(name: 'Liz Ard', breed: "Jackson's chameleon", age: 7, adoptable: true)
 
 
-app_1 = pet_5.applications.create!(name: 'Ms. Frizzle', address: '1 Magic Schoolbus Rd, Walkerville, MD, 01010', description: 'Because I am a boss.', status: :in_progress)
-app_2 = pet_2.applications.create!(name: 'Maude', address: '2 Sunflower Rd, Hillsborough, CA, 02220', description: "My head is in the stars...", status: :pending)
+app_1 = pet_5.applications.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :in_progress)
+app_2 = pet_2.applications.create!(name: 'Maude', street_address: '2 Sunflower Rd', city: 'Hillsborough', state: 'CA', zip_code: '02220', description: "My head is in the stars...", status: :pending)
 
 pet_3.applications << app_1

@@ -1,0 +1,23 @@
+<h1>New Application</h1>
+
+<%= form_with model: @application, url: applications_path, method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, required: true %>
+
+  <%= f.label :street_address %>
+  <%= f.text_field :street_address, required: true  %>
+
+  <%= f.label :city %>
+  <%= f.text_field :city, required: true %>
+
+  <%= f.label :state %>
+  <%= f.select :state, options_for_select(us_states), required: true %>
+
+  <%= f.label :zip_code %>
+  <%= f.text_field :zip_code, required: true %>
+
+  <%= f.label :description, 'Why would you make a good home for a new pet?' %>
+  <%= f.text_area :description, required: true %>
+
+  <%= f.submit 'Save' %>
+<% end %>
