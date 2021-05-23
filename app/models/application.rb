@@ -5,4 +5,8 @@ class Application < ApplicationRecord
   def display_status
     status.split('_').map {|w| w.capitalize}.join(' ')
   end
+
+  def display_address
+    "#{street_address}, #{city}, #{state}, #{zip_code}"
+  end
 end
