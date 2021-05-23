@@ -1,7 +1,8 @@
-module StatesHelper
+require 'rails_helper'
 
-  def us_states
-    [
+RSpec.describe StatesHelper do
+  it 'returns a list of state, abbreviation pairs' do
+    expected = [
       ['Alabama', 'AL'],
       ['Alaska', 'AK'],
       ['Arizona', 'AZ'],
@@ -55,5 +56,7 @@ module StatesHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
+
+    expect(us_states).to eq expected
   end
 end
