@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'new application view' do
   describe 'creation form' do
-    # before :each do
-    #   @shelter = Shelter.create!(name: 'All Star Pets', city: 'Walkerville', foster_program: true, rank: 4)
-    #   @liz = @frizz.pets.create!(name: 'Liz Ard', breed: "Jackson's chameleon", age: 7, adoptable: true, shelter: @shelter)
-    #   @cat = @frizz.pets.create!(name: 'Catward', breed: 'bengal', age: 4, adoptable: false, shelter: @shelter)
-    # end
-
     it 'renders the create form' do
       visit '/applications/new'
 
