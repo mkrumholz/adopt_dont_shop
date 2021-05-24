@@ -46,4 +46,20 @@ RSpec.describe 'the application show page' do
 
     expect(current_path).to eq "/pets/#{@liz.id}"
   end
+
+  describe 'in-progress application' do
+    it 'has a form to add a pet to the application' do
+      new_pet = Pet.create!(name: 'Gus', breed: 'Black Lab', age: 4, adoptable: true, shelter: @shelter)
+
+      visit "/applications/#{@frizz.id}"
+
+      expect(page).to have_content 'Add a Pet to this Application'
+
+      fill_in :search, with: 'Gus'
+      click_on 'Search'
+
+      expect(current_path).to eq "/applications/#{@frizz.id}"
+      expect(page).to have_content 'Gus'
+    end
+  end
 end
