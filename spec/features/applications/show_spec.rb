@@ -46,4 +46,30 @@ RSpec.describe 'the application show page' do
 
     expect(current_path).to eq "/pets/#{@liz.id}"
   end
+
+  describe 'in-progress application' do
+    it 'has a form to add a pet to the application' do
+      new_pet = Pet.create!(name: 'Gus', breed: 'Black Lab', age: 4, adoptable: true, shelter: @shelter)
+
+      visit "/applications/#{@frizz.id}"
+
+      expect(page).to have_content 'Add a Pet to this Application'
+
+      fill_in :pet_name, with: 'Gus'
+      click_on 'Submit'
+
+      expect(current_path).to eq "/applications/#{@frizz.id}?pet_name=Gus"
+      expect(page).to have_content 'Gus'
+    end
+  end
+#
+#   As a visitor
+# When I visit an application's show page
+# And that application has not been submitted,
+# Then I see a section on the page to "Add a Pet to this Application"
+# In that section I see an input where I can search for Pets by name
+# When I fill in this field with a Pet's name
+# And I click submit,
+# Then I am taken back to the application show page
+# And under the search bar I see any Pet whose name matches my search
 end
