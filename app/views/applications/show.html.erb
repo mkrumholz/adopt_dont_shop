@@ -10,3 +10,21 @@
     <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
   <% end %>
 </ul>
+
+<div>
+  <p>Add a Pet to this Application:</p>
+  <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |f| %>
+    <%= f.label :search, 'Search by Name' %>
+    <%= f.text_field :search, required: true %>
+    <%= f.submit 'Search' %>
+  <% end %><br/>
+
+  <% if !@search_results.nil? %>
+    <p>Results: </p>
+    <ul>
+      <% @search_results.each do |result| %>
+          <li><%= result.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

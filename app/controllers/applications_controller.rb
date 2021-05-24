@@ -5,6 +5,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:search].present?
+      @search_results = Pet.where(name: params[:search])
+    end
   end
 
   def new

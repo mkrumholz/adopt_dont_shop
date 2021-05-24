@@ -55,10 +55,10 @@ RSpec.describe 'the application show page' do
 
       expect(page).to have_content 'Add a Pet to this Application'
 
-      fill_in :pet_name, with: 'Gus'
-      click_on 'Submit'
+      fill_in :search, with: 'Gus'
+      click_on 'Search'
 
-      expect(current_path).to eq "/applications/#{@frizz.id}?pet_name=Gus"
+      expect(current_path).to eq "/applications/#{@frizz.id}"
       expect(page).to have_content 'Gus'
     end
   end
