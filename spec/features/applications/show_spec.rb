@@ -60,6 +60,45 @@ RSpec.describe 'the application show page' do
 
       expect(current_path).to eq "/applications/#{@frizz.id}"
       expect(page).to have_content 'Gus'
+      expect(page).to have_content 'Breed: Black Lab'
+      expect(page).to have_content 'Age: 4'
+      expect(page).to have_content 'Shelter: All Star Pets'
+    end
+
+    it 'links to the show page for each pet' do
+      new_pet_1 = Pet.create!(name: 'Gus', breed: 'Black Lab', age: 4, adoptable: true, shelter: @shelter)
+      new_pet_2 = Pet.create!(name: 'Bambi', breed: 'Basic deer', age: 1, adoptable: true, shelter: @shelter)
+
+      visit "/applications/#{@frizz.id}"
+
+      fill_in :search, with: 'Gus'
+      click_on 'Search'
+
+      within "li#pet-#{new_pet_1.id}" do
+        click_link 'More info'
+      end
+
+      expect(current_path).to eq "/pets/#{new_pet_1.id}"
+    end
+
+    it 'can add a pet to the application' do
+      new_pet_1 = Pet.create!(name: 'Gus', breed: 'Black Lab', age: 4, adoptable: true, shelter: @shelter)
+      new_pet_2 = Pet.create!(name: 'Bambi', breed: 'Basic deer', age: 1, adoptable: true, shelter: @shelter)
+
+      visit "/applications/#{@frizz.id}"
+
+      fill_in :search, with: 'Gus'
+      click_on 'Search'
+
+      within "li#pet-#{new_pet_1.id}" do
+        click_button 'Adopt this pet'
+      end
+
+      expect(current_path).to eq "/applications/#{@frizz.id}"
+
+      within "div#applied-for" do
+        expect(page).to have_content 'Gus'
+      end
     end
   end
 end

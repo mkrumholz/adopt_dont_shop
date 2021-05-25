@@ -7,6 +7,8 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search].present?
       @search_results = Pet.where(name: params[:search])
+    elsif params[:pet_id].present?
+      @application.pets << Pet.find(params[:pet_id])
     end
   end
 
