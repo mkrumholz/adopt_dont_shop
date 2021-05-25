@@ -1,12 +1,3 @@
-# For this story, you should fully leverage ActiveRecord methods in your query.
-#
-# Shelters with Pending Applications
-#
-# As a visitor
-# When I visit the admin shelter index ('/admin/shelters')
-# Then I see a section for "Shelter's with Pending Applications"
-# And in this section I see the name of every shelter that has a pending application
-
 require 'rails_helper'
 
 RSpec.describe 'admin shelter index' do
