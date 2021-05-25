@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   root 'application#welcome'
 
   resources :applications
+  namespace :admin do
+    resources :shelters, only: [:index]
+  end
 
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
@@ -39,5 +42,5 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
-  get '/admin/shelters', to: 'admin#index'
+  # get '/admin/shelters', to: 'admin::shelters#index'
 end
