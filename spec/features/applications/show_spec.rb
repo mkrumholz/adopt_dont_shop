@@ -61,6 +61,27 @@ RSpec.describe 'the application show page' do
     end
   end
 
+  describe 'submitting the application' do
+    it 'can submit the application' do
+      visit "/applications/#{@frizz.id}"
+
+      fill_in :description, with: 'Liz Ard is my soulmate.'
+      click_on 'Submit application'
+
+      expect(current_path).to eq "/applications/#{@frizz.id}"
+      expect(page).to have_content 'Application status: Pending'
+      expect(page).to_not have_content 'Add a Pet to this Application'
+    end
+
+    it 'does not allow submission if application has no pets' do
+      new_app = Application.create!(name: 'Newton', street_address: '1 New Rd', city: 'Newton', state: 'MA', zip_code: '11223', description: 'Unclear', status: :in_progress)
+
+      visit "/applications/#{new_app.id}"
+
+      expect(page).to_not have_button 'Submit application'
+    end
+  end
+
   describe 'adding a pet' do
     before :each do
       @new_pet_1 = Pet.create!(name: 'Gus', breed: 'Black Lab', age: 4, adoptable: true, shelter: @shelter)
