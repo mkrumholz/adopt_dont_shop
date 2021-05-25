@@ -24,7 +24,14 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
 
+  def update
+    application = Application.find(params[:id])
+    if params[:commit] == "Submit application"
+      application.update!(description: params[:description], status: :pending)
+    end
+    redirect_to "/applications/#{application.id}"
   end
 
   private
