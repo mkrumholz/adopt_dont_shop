@@ -17,8 +17,14 @@
   <% end %>
 </div>
 
-<% if @application.status == :in_progress && @applications.pets.present? %>
-  <div>  section to submit application </div>
+<% if @application.status == 'in_progress' && @application.pets.present? %>
+  <div>
+    <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+      <%= f.label :description, 'Would you like to make any additions or updates to let us know why you would make a great home for a new pet?' %>
+      <%= f.text_area :description, value: @application.description %>
+      <%= f.submit 'Submit application' %>
+    <% end %>
+  </div>
 <% end %>
 
 <% if @application.status == 'in_progress' %>
