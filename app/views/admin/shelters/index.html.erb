@@ -1,0 +1,19 @@
+<h1>Shelters</h1>
+
+<div id="all-shelters">
+  <h2>All Shelters</h2>
+  <% @shelters.reverse_by_name.each do |shelter| %>
+    <div id="shelter-<% shelter.id %>">
+      <h3><%= shelter.name %></h3>
+    </div>
+  <% end %>
+</div>
+
+<div id="shelters-pending">
+  <h2>Shelters with Pending Applications</h2>
+  <% @shelters.with_pending_applications.each do |shelter| %>
+    <div id="shelter-<% shelter.id %>">
+      <h3><%= shelter.name %></h3>
+    </div>
+  <% end %>
+</div>
