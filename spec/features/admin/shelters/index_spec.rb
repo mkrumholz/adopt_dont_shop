@@ -9,8 +9,9 @@ RSpec.describe 'admin shelter index' do
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
-    @liz = @app_2.pets.create!(name: 'Liz Ard', breed: "Jackson's chameleon", age: 7, adoptable: true, shelter: @shelter_1)
-    @cat = @app_2.pets.create!(name: 'Catward', breed: 'bengal', age: 4, adoptable: false, shelter: @shelter_2)
+    @app_2.pets.create!(name: 'Liz Ard', breed: "Jackson's chameleon", age: 7, adoptable: true, shelter: @shelter_1)
+    @app_2.pets.create!(name: 'Catward', breed: 'bengal', age: 4, adoptable: false, shelter: @shelter_2)
+    @app_2.pets.create!(name: 'Gus', breed: 'Black Lab', age: 4, adoptable: true, shelter: @shelter_2)
   end
 
   it 'lists all shelters, ordered in reverse by name' do
@@ -28,8 +29,8 @@ RSpec.describe 'admin shelter index' do
 
     within '#shelters-pending' do
       expect(page).to have_content 'Shelters with Pending Applications'
-      expect(page).to have_content 'Aurora shelter'
-      expect(page).to have_content 'RGV animal shelter'
+      expect(page).to have_content('Aurora shelter', count: 1)
+      expect(page).to have_content('RGV animal shelter', count: 1)
       expect(page).to_not have_content 'Fancy pets of Colorado'
     end
   end
