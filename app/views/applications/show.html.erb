@@ -6,34 +6,44 @@
 
 <div id="applied-for">
   <p>Pets applied for:</p>
-  <ul>
-    <% @application.pets.each do |pet| %>
-      <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
-    <% end %>
-  </ul>
-</div>
-
-<div>
-  <p>Add a Pet to this Application:</p>
-  <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |f| %>
-    <%= f.label :search, 'Search by Name' %>
-    <%= f.text_field :search, required: true %>
-    <%= f.submit 'Search' %>
-  <% end %><br/>
-
-  <% if !@search_results.nil? %>
-    <p>Results: </p>
+  <% if @application.pets.empty? %>
+    <p>None yet! To submit your application, please add at least one pet.</p>
+  <% else %>
     <ul>
-      <% @search_results.each do |pet| %>
-          <li id="pet-<%= pet.id %>">
-            <h3><%= pet.name %></h3>
-            <p>Breed: <%= pet.breed %></p>
-            <p>Age: <%= pet.age %></p>
-            <p>Shelter: <%= pet.shelter.name %></p>
-            <a href="/pets/<%= pet.id %>" target="_blank" >More info</a>
-            <%= button_to 'Adopt this pet', "/applications/#{@application.id}", method: :get, params: {pet_id: pet.id} %>
-          </li>
+      <% @application.pets.each do |pet| %>
+        <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
       <% end %>
     </ul>
   <% end %>
 </div>
+
+<% if @application.status == :in_progress && @applications.pets.present? %>
+  <div>  section to submit application </div>
+<% end %>
+
+<% if @application.status == 'in_progress' %>
+  <div>
+    <p>Add a Pet to this Application:</p>
+    <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :search, 'Search by Name' %>
+      <%= f.text_field :search, required: true %>
+      <%= f.submit 'Search' %>
+    <% end %><br/>
+
+    <% if !@search_results.nil? %>
+      <p>Results: </p>
+      <ul>
+        <% @search_results.each do |pet| %>
+            <li id="pet-<%= pet.id %>">
+              <h3><%= pet.name %></h3>
+              <p>Breed: <%= pet.breed %></p>
+              <p>Age: <%= pet.age %></p>
+              <p>Shelter: <%= pet.shelter.name %></p>
+              <a href="/pets/<%= pet.id %>" target="_blank" >More info</a>
+              <%= button_to 'Adopt this pet', "/applications/#{@application.id}", method: :get, params: {pet_id: pet.id} %>
+            </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
