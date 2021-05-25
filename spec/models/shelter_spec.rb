@@ -13,6 +13,9 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
+    @app_1 = Application.create!(name: 'Newton', street_address: '1 New Rd', city: 'Newton', state: 'MA', zip_code: '11223', description: 'Unclear', status: :in_progress)
+    @app_2 = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :pending)
+
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
@@ -21,6 +24,9 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @app_2.pets << @pet_1
+    @app_2.pets << @pet_3
   end
 
   describe 'class methods' do
@@ -45,6 +51,14 @@ RSpec.describe Shelter, type: :model do
     describe '#reverse_by_name' do
       it 'orders the shelters in reverse alphabetical order' do
         expect(Shelter.reverse_by_name).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#with_pending_applications' do
+      it 'returns shelters with pending applications' do
+        expect(Shelter.with_pending_applications).to include @shelter_1
+        expect(Shelter.with_pending_applications).to include @shelter_3
+        expect(Shelter.with_pending_applications).to_not include @shelter_2
       end
     end
   end
