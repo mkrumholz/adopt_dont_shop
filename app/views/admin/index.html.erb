@@ -1,0 +1,9 @@
+<h1>Shelters</h1>
+
+<h2>All Shelters</h2>
+
+<% @shelters.reverse_by_name.each do |shelter| %>
+  <div id="shelter-<% shelter.id %>">
+    <h3><%= shelter.name %></h3>
+  </div>
+<% end %>
