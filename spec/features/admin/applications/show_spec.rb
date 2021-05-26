@@ -12,7 +12,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin applications show page' do
   before :each do
-    @frizz = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :in_progress)
+    @frizz = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :pending)
     @shelter = Shelter.create!(name: 'All Star Pets', city: 'Walkerville', foster_program: true, rank: 4)
     @liz = @frizz.pets.create!(name: 'Liz Ard', breed: "Jackson's chameleon", age: 7, adoptable: true, shelter: @shelter)
     @cat = @frizz.pets.create!(name: 'Catward', breed: 'bengal', age: 4, adoptable: false, shelter: @shelter)
@@ -21,18 +21,18 @@ RSpec.describe 'admin applications show page' do
   it 'allows admin to approve any pet individually' do
     visit "/admin/applications/#{@frizz.id}"
 
-    within "pet-#{@liz.id}" do
+    within "div#pet-#{@liz.id}" do
       click_on 'Approve'
     end
 
     expect(current_path).to eq "/admin/applications/#{@frizz.id}"
-    within "pet-#{@liz.id}" do
+    within "div#pet-#{@liz.id}" do
       expect(page).to_not have_button 'Approve'
       expect(page).to_not have_button 'Reject'
       expect(page).to have_content 'Approved'
     end
 
-    within "pet-#{@cat.id}" do
+    within "div#pet-#{@cat.id}" do
       expect(page).to have_button 'Approve'
       expect(page).to have_button 'Reject'
     end
@@ -41,18 +41,18 @@ RSpec.describe 'admin applications show page' do
   it 'allows admin to approve any pet individually' do
     visit "/admin/applications/#{@frizz.id}"
 
-    within "pet-#{@cat.id}" do
+    within "div#pet-#{@cat.id}" do
       click_on 'Reject'
     end
 
     expect(current_path).to eq "/admin/applications/#{@frizz.id}"
-    within "pet-#{@cat.id}" do
+    within "div#pet-#{@cat.id}" do
       expect(page).to_not have_button 'Approve'
       expect(page).to_not have_button 'Reject'
       expect(page).to have_content 'Rejected'
     end
 
-    within "pet-#{@liz.id}" do
+    within "div#pet-#{@liz.id}" do
       expect(page).to have_button 'Approve'
       expect(page).to have_button 'Reject'
     end
