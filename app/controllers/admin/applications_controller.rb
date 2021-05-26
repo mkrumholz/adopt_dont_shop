@@ -5,7 +5,6 @@ module Admin
       if params[:status].present?
         pet_application = PetApplication.locate(params[:pet_id], @application.id)
         pet_application.update_status(params[:status])
-        render :show
       end
     end
   end
