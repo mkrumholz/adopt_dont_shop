@@ -18,19 +18,37 @@ RSpec.describe Application do
   end
 
   describe 'instance methods' do
+    before :each do
+      @frizz = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :in_progress)
+    end
+
     describe '#display_status' do
       it 'displays the status as a string' do
-        @frizz = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :in_progress)
-
         expect(@frizz.display_status).to eq 'In Progress'
       end
     end
 
     describe '#display_address' do
       it 'displays the complete address as a string' do
-        @frizz = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :in_progress)
-
         expect(@frizz.display_address).to eq '1 Magic Schoolbus Rd, Walkerville, MD, 01010'
+      end
+    end
+
+    describe '#all_pets_approved?' do
+      it 'returns true if all pet applications have been approved' do
+        shelter = Shelter.create!(name: 'All Star Pets', city: 'Walkerville', foster_program: true, rank: 4)
+        liz = @frizz.pets.create!(name: 'Liz Ard', breed: "Jackson's chameleon", age: 7, adoptable: true, shelter: shelter)
+        cat = @frizz.pets.create!(name: 'Catward', breed: 'bengal', age: 4, adoptable: true, shelter: shelter)
+
+        expect(@frizz.all_pets_approved?).to eq false
+
+        PetApplication.locate(liz.id, @frizz.id).update_status(:approved)
+
+        expect(@frizz.all_pets_approved?).to eq false
+
+        PetApplication.locate(cat.id, @frizz.id).update_status(:approved)
+
+        expect(@frizz.all_pets_approved?).to eq true
       end
     end
   end

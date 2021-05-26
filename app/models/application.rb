@@ -16,4 +16,8 @@ class Application < ApplicationRecord
   def display_address
     "#{street_address}, #{city}, #{state}, #{zip_code}"
   end
+
+  def all_pets_approved?
+    pet_applications.all.all? { |pet_app| pet_app.status == 'approved' }
+  end
 end
