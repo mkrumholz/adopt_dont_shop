@@ -13,8 +13,15 @@
       <% @application.pets.each do |pet| %>
         <div id="pet-<%= pet.id %>">
           <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
-          <%= button_to 'Approve', admin_application_path, method: :get, params: {status: :approved, pet_id: pet.id} %>
-          <%= button_to 'Reject', admin_application_path, method: :get, params: {status: :rejected, pet_id: pet.id} %>
+          <% status = PetApplication.locate(pet.id, @application.id).status %>
+          <% if status == 'pending' %>
+            <%= button_to 'Approve', admin_application_path, method: :get, params: {status: :approved, pet_id: pet.id} %>
+            <%= button_to 'Reject', admin_application_path, method: :get, params: {status: :rejected, pet_id: pet.id} %>
+          <% elsif status == 'approved' %>
+            <p>Approved</p>
+          <% elsif status == 'rejected' %>
+            <p>Rejected</p>
+          <% end %>
         </div>
       <% end %>
     </ul>
