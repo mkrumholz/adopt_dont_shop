@@ -73,4 +73,34 @@ RSpec.describe 'admin applications show page' do
       expect(page).to have_button 'Reject'
     end
   end
+
+  it 'updates application status to approved once all pet_applications are approved' do
+    visit "/admin/applications/#{@frizz.id}"
+
+    within "div#pet-#{@liz.id}" do
+      click_on 'Approve'
+    end
+
+    within "div#pet-#{@cat.id}" do
+      click_on 'Approve'
+    end
+
+    expect(current_path).to eq "/admin/applications/#{@frizz.id}"
+    expect(page).to have_content 'Application status: Approved'
+  end
+
+  it 'updates application status to rejected if any pet has been rejected' do
+    visit "/admin/applications/#{@frizz.id}"
+
+    within "div#pet-#{@liz.id}" do
+      click_on 'Approve'
+    end
+
+    within "div#pet-#{@cat.id}" do
+      click_on 'Reject'
+    end
+
+    expect(current_path).to eq "/admin/applications/#{@frizz.id}"
+    expect(page).to have_content 'Application status: Rejected'
+  end
 end
