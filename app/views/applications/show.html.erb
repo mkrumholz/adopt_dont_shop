@@ -1,8 +1,4 @@
-<h1><%= @application.name %></h1>
-
-<p>Address: <%= @application.display_address %></p>
-<p>Summary statement: <%= @application.description %></p>
-<p>Application status: <%= @application.display_status %></p>
+<%= render partial: 'application_details' %>
 
 <div id="applied-for">
   <p>Pets applied for:</p>
@@ -30,11 +26,7 @@
 <% if @application.status == 'in_progress' %>
   <div>
     <p>Add a Pet to this Application:</p>
-    <%= form_with url:"/applications/#{@application.id}", method: :get, local: true do |f| %>
-      <%= f.label :search, 'Search by Name' %>
-      <%= f.text_field :search, required: true %>
-      <%= f.submit 'Search' %>
-    <% end %><br/>
+    <%= render partial: 'pets/pet_search', locals: { path: "/applications/#{@application.id}" } %><br/>
 
     <% if !@search_results.nil? %>
       <p>Results: </p>
