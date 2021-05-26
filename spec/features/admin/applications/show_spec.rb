@@ -26,6 +26,7 @@ RSpec.describe 'admin applications show page' do
     end
 
     expect(current_path).to eq "/admin/applications/#{@frizz.id}"
+
     within "div#pet-#{@liz.id}" do
       expect(page).to_not have_button 'Approve'
       expect(page).to_not have_button 'Reject'
