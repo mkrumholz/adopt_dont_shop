@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :applications
   namespace :admin do
     resources :shelters, only: [:index]
+    resources :applications, only: [:show]
   end
 
   get '/shelters', to: 'shelters#index'
@@ -41,6 +42,4 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinary_offices#veterinarians'
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
-
-  # get '/admin/shelters', to: 'admin::shelters#index'
 end

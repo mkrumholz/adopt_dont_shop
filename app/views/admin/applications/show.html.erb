@@ -1,0 +1,29 @@
+<h1><%= @application.name %></h1>
+
+<p>Address: <%= @application.display_address %></p>
+<p>Summary statement: <%= @application.description %></p>
+<p>Application status: <%= @application.display_status %></p>
+
+<div id="applied-for">
+  <p>Pets applied for:</p>
+  <% if @application.pets.empty? %>
+    <p>No pets have been added to this application.</p>
+  <% else %>
+    <ul>
+      <% @application.pets.each do |pet| %>
+        <div id="pet-<%= pet.id %>">
+          <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
+          <% status = PetApplication.locate(pet.id, @application.id).status %>
+          <% if status == 'pending' %>
+            <%= button_to 'Approve', admin_application_path, method: :get, params: {status: :approved, pet_id: pet.id} %>
+            <%= button_to 'Reject', admin_application_path, method: :get, params: {status: :rejected, pet_id: pet.id} %>
+          <% elsif status == 'approved' %>
+            <p>Approved</p>
+          <% elsif status == 'rejected' %>
+            <p>Rejected</p>
+          <% end %>
+        </div>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
