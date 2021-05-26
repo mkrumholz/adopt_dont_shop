@@ -48,4 +48,29 @@ RSpec.describe 'admin applications show page' do
       expect(page).to have_button 'Reject'
     end
   end
+
+  it 'does not impact other applications for that pet' do
+    new_app = Application.create!(name: 'Newton', street_address: '1 New Rd', city: 'Newton', state: 'MA', zip_code: '11223', description: 'Unclear', status: :pending)
+    new_app.pets << @liz
+
+    visit "/admin/applications/#{new_app.id}"
+
+    within "div#pet-#{@liz.id}" do
+      expect(page).to have_button 'Approve'
+      expect(page).to have_button 'Reject'
+    end
+
+    visit "/admin/applications/#{@frizz.id}"
+
+    within "div#pet-#{@liz.id}" do
+      click_on 'Approve'
+    end
+
+    visit "/admin/applications/#{new_app.id}"
+
+    within "div#pet-#{@liz.id}" do
+      expect(page).to have_button 'Approve'
+      expect(page).to have_button 'Reject'
+    end
+  end
 end
