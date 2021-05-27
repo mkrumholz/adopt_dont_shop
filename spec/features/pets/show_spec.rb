@@ -34,6 +34,7 @@ RSpec.describe 'the pet show' do
 
     PetApplication.locate(liz.id, frizz.id).update(status: :approved)
     PetApplication.locate(cat.id, frizz.id).update(status: :approved)
+    frizz.update_status
 
     visit "/pets/#{liz.id}"
 
