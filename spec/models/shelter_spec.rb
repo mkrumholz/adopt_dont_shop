@@ -30,6 +30,7 @@ RSpec.describe Shelter, type: :model do
 
     @app_2.pets << @pet_1
     @app_2.pets << @pet_3
+    @app_3.pets << @pet_5
   end
 
   describe 'class methods' do
