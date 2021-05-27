@@ -1,8 +1,4 @@
-<h1><%= @application.name %></h1>
-
-<p>Address: <%= @application.display_address %></p>
-<p>Summary statement: <%= @application.description %></p>
-<p>Application status: <%= @application.display_status %></p>
+<%= render partial: 'applications/application_details' %>
 
 <div id="applied-for">
   <p>Pets applied for:</p>
@@ -14,13 +10,16 @@
         <div id="pet-<%= pet.id %>">
           <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
           <% status = PetApplication.locate(pet.id, @application.id).status %>
-          <% if status == 'pending' %>
-            <%= button_to 'Approve', admin_application_path, method: :get, params: {status: :approved, pet_id: pet.id} %>
-            <%= button_to 'Reject', admin_application_path, method: :get, params: {status: :rejected, pet_id: pet.id} %>
-          <% elsif status == 'approved' %>
-            <p>Approved</p>
+          <% if status == 'approved' %>
+            <p>Approved!</p>
           <% elsif status == 'rejected' %>
-            <p>Rejected</p>
+            <p>Rejected.</p>
+          <% elsif pet.adoptable == false %>
+            <p>Too slow! Sorry, but this pet has been already approved for adoption.</p>
+            <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
+          <% else %>
+            <%= button_to 'Approve', pet_application_path, method: :patch, params: {status: :approved, pet_id: pet.id} %>
+            <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
           <% end %>
         </div>
       <% end %>

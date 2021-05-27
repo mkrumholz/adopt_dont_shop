@@ -1,0 +1,5 @@
+<%= form_with url: path, method: :get, local: true do |f| %>
+  <%= f.label :search, 'Search by Name' %>
+  <%= f.text_field :search, required: true %>
+  <%= f.submit "Search" %>
+<% end %>
