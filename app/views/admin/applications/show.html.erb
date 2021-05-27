@@ -17,7 +17,7 @@
           <% elsif pet.adoptable == false %>
             <p>Too slow! Sorry, but this pet has been already approved for adoption.</p>
             <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
-          <% elsif status == 'pending' && pet.adoptable == true %>
+          <% else %>
             <%= button_to 'Approve', pet_application_path, method: :patch, params: {status: :approved, pet_id: pet.id} %>
             <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
           <% end %>
