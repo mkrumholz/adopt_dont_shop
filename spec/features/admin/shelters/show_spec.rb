@@ -49,6 +49,6 @@ RSpec.describe 'admin shelters show page' do
       click_on 'Liz Ard'
     end
 
-    expect(current_path).to eq "/applications/#{liz.id}"
+    expect(current_path).to eq "/admin/applications/#{app_2.id}"
   end
 end

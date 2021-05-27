@@ -12,6 +12,6 @@
 <div id="action-required">
   <h3>Action Required</h3>
   <% @shelter.pending_pets.each do |pet| %>
-    <p><a href"/admin/applications/<%= pet.pending_application_id %>"><%= pet.name %></p>
+    <p><a href="/admin/applications/<%= pet.pending_application_id %>"><%= pet.name %></a></p>
   <% end %>
 </div>
