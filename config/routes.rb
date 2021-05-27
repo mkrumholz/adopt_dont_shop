@@ -1,25 +1,11 @@
 Rails.application.routes.draw do
   root 'application#welcome'
 
-  resources :applications, :pet_applications
+  resources :applications, :pet_applications, :pets, :shelters, :veterinarians
   namespace :admin do
     resources :shelters, only: [:index, :show]
     resources :applications, only: [:index, :show]
   end
-
-  get '/shelters', to: 'shelters#index'
-  get '/shelters/new', to: 'shelters#new'
-  get '/shelters/:id', to: 'shelters#show'
-  post '/shelters', to: 'shelters#create'
-  get '/shelters/:id/edit', to: 'shelters#edit'
-  patch '/shelters/:id', to: 'shelters#update'
-  delete '/shelters/:id', to: 'shelters#destroy'
-
-  get '/pets', to: 'pets#index'
-  get '/pets/:id', to: 'pets#show'
-  get '/pets/:id/edit', to: 'pets#edit'
-  patch '/pets/:id', to: 'pets#update'
-  delete '/pets/:id', to: 'pets#destroy'
 
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
