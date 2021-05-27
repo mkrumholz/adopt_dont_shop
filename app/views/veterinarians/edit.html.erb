@@ -1,13 +1,16 @@
 <h1>Edit Veterinarian</h1>
-<%= form_with url: "/veterinarians/#{@veterinarian.id}", method: :patch, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
 
-  <%= f.label :on_call %>
-  <%= f.check_box :on_call %>
+<div class="container-sm mx-5">
+  <%= form_with url: "/veterinarians/#{@veterinarian.id}", method: :patch, local: true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-  <%= f.label :review_rating %>
-  <%= f.number_field :review_rating %>
+    <%= f.label :on_call %>
+    <%= f.check_box :on_call %>
 
-  <%= f.submit %>
-<% end %>
+    <%= f.label :review_rating %>
+    <%= f.number_field :review_rating %>
+
+    <%= f.submit %>
+  <% end %>
+</div>

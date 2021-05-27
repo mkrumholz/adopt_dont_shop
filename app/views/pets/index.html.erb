@@ -1,15 +1,17 @@
 <h1>All pets</h1>
 
-<%= render partial: 'pet_search', locals: { path: '/pets' } %>
+<div class="container-sm mx-5">
+  <%= render partial: 'pet_search', locals: { path: '/pets' } %>
 
-<% @pets.each do |pet| %>
-  <h3><%= pet.name %></h3>
-  <p>Age: <%= pet.age %></p>
-  <p>Breed: <%= pet.breed %></p>
-  <p>Adoptable: </p>
-  <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-  <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
-<% end %>
+  <% @pets.each do |pet| %>
+    <h3><%= pet.name %></h3>
+    <p>Age: <%= pet.age %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Adoptable: </p>
+    <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
+    <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
+    <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+  <% end %>
 
-<%= link_to 'Start an application', '/applications/new', method: :get %>
+  <%= link_to 'Start an application', '/applications/new', method: :get %>
+</div>
