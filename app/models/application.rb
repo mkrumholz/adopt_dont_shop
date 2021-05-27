@@ -28,6 +28,9 @@ class Application < ApplicationRecord
   def update_status
     if all_pets_approved?
       update!(status: :approved)
+      pet_applications.each do |pet_app|
+        pet_app.update!(adoptable: false)
+      end
     elsif any_pet_rejected?
       update!(status: :rejected)
     end
