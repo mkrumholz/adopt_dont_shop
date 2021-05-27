@@ -2,7 +2,7 @@ module Admin
   class SheltersController < ApplicationController
     def index
       @shelters = Shelter.all
-      @reverse_shelters = shelters.reverse_by_name
+      @reverse_shelters = @shelters.reverse_by_name
       @shelters_with_pending_apps = @shelters.with_pending_applications.by_name
     end
 
