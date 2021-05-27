@@ -18,21 +18,29 @@ class Application < ApplicationRecord
   end
 
   def all_pets_approved?
-    pet_applications.all.all? { |pet_app| pet_app.status == 'approved' }
+    pet_applications.all_approved?
   end
 
   def any_pet_rejected?
-    pet_applications.all.any? { |application| application.status == 'rejected' }
+    pet_applications.any_rejected?
   end
 
   def update_status
     if all_pets_approved?
       update!(status: :approved)
-      pet_applications.each do |pet_app|
-        pet_app.update!(adoptable: false)
-      end
+      adopt_all_pets
     elsif any_pet_rejected?
       update!(status: :rejected)
+      reject_all_applications
     end
   end
+
+  private
+    def adopt_all_pets
+      pet_applications.each { |pet_app| pet_app.pet.update!(adoptable: false) }
+    end
+
+    def reject_all_applications
+      pet_applications.each { |pet_app| pet_app.update!(status: :rejected) }
+    end
 end
