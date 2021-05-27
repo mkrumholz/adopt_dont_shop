@@ -12,16 +12,15 @@
         <% end %>
       </ul>
     <% end %>
-  </div>
+  </div><br/>
 
   <% if @application.status == 'in_progress' && @application.pets.present? %>
     <div>
-      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-        <%= f.label :description, 'Would you like to make any additions or updates to let us know why you would make a great home for a new pet?' %>
-        <%= f.text_area :description, value: @application.description %>
+      <%= bootstrap_form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <%= f.text_area :description, value: @application.description, label: 'Would you like to make any additions or updates to let us know why you would make a great home for a new pet?' %>
         <%= f.submit 'Submit application' %>
       <% end %>
-    </div>
+    </div><br/>
   <% end %>
 
   <% if @application.status == 'in_progress' %>
