@@ -13,4 +13,9 @@ class PetApplication < ApplicationRecord
   def self.any_rejected?
     all.any? { |application| application.status == 'rejected' }
   end
+
+  private
+    def self.reject_all
+      update_all(status: :rejected)
+    end
 end

@@ -41,6 +41,6 @@ class Application < ApplicationRecord
     end
 
     def reject_all_applications
-      pet_applications.each { |pet_app| pet_app.update!(status: :rejected) }
+      pet_applications.reject_all
     end
 end

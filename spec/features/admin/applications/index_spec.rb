@@ -9,16 +9,16 @@ RSpec.describe 'the application index page' do
   end
 
   it 'shows all the names of the pets' do
-    visit '/applications'
+    visit '/admin/applications'
 
     expect(page).to have_content 'Ms. Frizzle'
   end
 
-  it 'contains a link to each application show page' do
-    visit '/applications'
+  it 'contains a link to each application admin show page' do
+    visit '/admin/applications'
 
     click_on 'Ms. Frizzle'
 
-    expect(current_path).to eq "/applications/#{@frizz.id}"
+    expect(current_path).to eq "/admin/applications/#{@frizz.id}"
   end
 end
