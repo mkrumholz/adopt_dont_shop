@@ -16,4 +16,8 @@ class Pet < ApplicationRecord
   def self.avg_adoptable_age
     where(adoptable: true).average(:age)
   end
+
+  def self.count_adopted
+    joins(:applications).where(applications: {status: :approved}).count
+  end
 end

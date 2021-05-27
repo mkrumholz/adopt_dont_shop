@@ -40,6 +40,10 @@ class Shelter < ApplicationRecord
     adoptable_pets.count
   end
 
+  def adopted_pet_count
+    pets.count_adopted
+  end
+
   def avg_adoptable_pet_age
     pets.avg_adoptable_age
   end
