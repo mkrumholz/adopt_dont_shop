@@ -7,9 +7,7 @@ module Admin
     end
 
     def show
-      @shelter = Shelter.find(params[:id])
-      @shelter_name = Shelter.find_by_sql("select name from shelters where id = #{params[:id]}")
-      @shelter_city = Shelter.find_by_sql("select city from shelters where id = #{params[:id]}")
+      @shelter = Shelter.find_by_sql("select id, name, city from shelters where id = #{params[:id]}").first
     end
   end
 end

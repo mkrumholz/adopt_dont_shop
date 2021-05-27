@@ -80,6 +80,12 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
+    describe '.pending_pets' do
+      it 'only returns pets that have pending applications open' do
+        expect(@shelter_1.pending_pets).to eq [@pet_1]
+      end
+    end
+
     describe '.adoptable_pet_count' do
       it 'returns count of pets that are adoptable' do
         expect(@shelter_1.adoptable_pet_count).to eq 2

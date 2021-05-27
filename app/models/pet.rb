@@ -20,4 +20,8 @@ class Pet < ApplicationRecord
   def self.count_adopted
     joins(:applications).where(applications: {status: :approved}).count
   end
+
+  def pending_application_id
+    applications.where(status: :pending).pluck(:id).first
+  end
 end
