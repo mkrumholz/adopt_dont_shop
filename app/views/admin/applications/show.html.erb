@@ -1,28 +1,30 @@
-<%= render partial: 'applications/application_details' %>
+<div class="container-sm mx-5 mb-4">
+  <%= render partial: 'applications/application_details' %>
 
-<div id="applied-for">
-  <p>Pets applied for:</p>
-  <% if @application.pets.empty? %>
-    <p>No pets have been added to this application.</p>
-  <% else %>
-    <ul>
-      <% @application.pets.each do |pet| %>
-        <div id="pet-<%= pet.id %>">
-          <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
-          <% status = pet.pet_application_status(@application.id) %>
-          <% if status == 'approved' %>
-            <p>Approved!</p>
-          <% elsif status == 'rejected' %>
-            <p>Rejected.</p>
-          <% elsif pet.adoptable == false %>
-            <p>Too slow! Sorry, but this pet has been already approved for adoption.</p>
-            <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
-          <% else %>
-            <%= button_to 'Approve', pet_application_path, method: :patch, params: {status: :approved, pet_id: pet.id} %>
-            <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
-          <% end %>
-        </div>
-      <% end %>
-    </ul>
-  <% end %>
+  <div id="applied-for">
+    <p>Pets applied for:</p>
+    <% if @application.pets.empty? %>
+      <p>No pets have been added to this application.</p>
+    <% else %>
+      <ul>
+        <% @application.pets.each do |pet| %>
+          <div id="pet-<%= pet.id %>">
+            <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
+            <% status = pet.pet_application_status(@application.id) %>
+            <% if status == 'approved' %>
+              <p>Approved!</p>
+            <% elsif status == 'rejected' %>
+              <p>Rejected.</p>
+            <% elsif pet.adoptable == false %>
+              <p>Too slow! Sorry, but this pet has been already approved for adoption.</p>
+              <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
+            <% else %>
+              <%= button_to 'Approve', pet_application_path, method: :patch, params: {status: :approved, pet_id: pet.id} %>
+              <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
+            <% end %>
+          </div>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 </div>
