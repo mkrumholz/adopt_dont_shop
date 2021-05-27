@@ -4,5 +4,6 @@
 
 <div>
   <h3>Shelter Stats:</h3>
-  <p>Average age of available pets: <%= @shelter.pets.avg_adoptable_age %></p>
+  <p>Pets available: <%= @shelter.adoptable_pet_count %>
+  <p>Average age of available pets: <%= @shelter.avg_adoptable_pet_age %></p>
 </div>
