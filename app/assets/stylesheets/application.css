@@ -19,3 +19,17 @@
    text-align: center;
    padding: 30px;
  }
+
+.btn-primary {
+  background-color: #786496;
+  border-color: #34254a;
+}
+
+.btn-primary:hover {
+  background-color: #4d3770;
+  border-color: #34254a;
+}
+
+.index-each {
+  margin: 20px;
+}
