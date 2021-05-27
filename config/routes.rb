@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'application#welcome'
 
-  resources :applications
+  resources :applications, :pet_applications
   namespace :admin do
     resources :shelters, only: [:index]
     resources :applications, only: [:show]

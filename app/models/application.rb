@@ -20,4 +20,16 @@ class Application < ApplicationRecord
   def all_pets_approved?
     pet_applications.all.all? { |pet_app| pet_app.status == 'approved' }
   end
+
+  def any_pet_rejected?
+    pet_applications.all.any? { |application| application.status == 'rejected' }
+  end
+
+  def update_status
+    if all_pets_approved?
+      update!(status: :approved)
+    elsif any_pet_rejected?
+      update!(status: :rejected)
+    end
+  end
 end

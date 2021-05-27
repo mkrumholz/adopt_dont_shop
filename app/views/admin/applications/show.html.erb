@@ -11,8 +11,8 @@
           <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
           <% status = PetApplication.locate(pet.id, @application.id).status %>
           <% if status == 'pending' %>
-            <%= button_to 'Approve', admin_application_path, method: :get, params: {status: :approved, pet_id: pet.id} %>
-            <%= button_to 'Reject', admin_application_path, method: :get, params: {status: :rejected, pet_id: pet.id} %>
+            <%= button_to 'Approve', pet_application_path, method: :patch, params: {status: :approved, pet_id: pet.id} %>
+            <%= button_to 'Reject', pet_application_path, method: :patch, params: {status: :rejected, pet_id: pet.id} %>
           <% elsif status == 'approved' %>
             <p>Approved!</p>
           <% elsif status == 'rejected' %>
