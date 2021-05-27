@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :applications, :pet_applications
   namespace :admin do
     resources :shelters, only: [:index, :show]
-    resources :applications, only: [:show]
+    resources :applications, only: [:index, :show]
   end
 
   get '/shelters', to: 'shelters#index'
