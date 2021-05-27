@@ -32,6 +32,12 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe '#average_adoptable_age' do
+      it 'returns the average age of the pets' do
+        expect(Pet.average_adoptable_age). to eq 4
+      end
+    end
   end
 
   describe 'instance methods' do
