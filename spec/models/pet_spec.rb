@@ -60,9 +60,15 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe 'pending_application_id' do
+    describe '.pending_application_id' do
       it 'returns the id of the first pending application for the pet' do
         expect(@pet_1.pending_application_id).to eq @app_2.id
+      end
+    end
+
+    describe '.pet_application_status' do
+      it 'returns the status of the pet application for the pet and given app' do
+        expect(@pet_1.pet_application_status(@app_2.id)).to eq 'pending'
       end
     end
   end

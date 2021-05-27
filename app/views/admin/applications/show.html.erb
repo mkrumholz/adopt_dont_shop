@@ -9,7 +9,7 @@
       <% @application.pets.each do |pet| %>
         <div id="pet-<%= pet.id %>">
           <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li>
-          <% status = PetApplication.locate(pet.id, @application.id).status %>
+          <% status = pet.pet_application_status(@application.id) %>
           <% if status == 'approved' %>
             <p>Approved!</p>
           <% elsif status == 'rejected' %>

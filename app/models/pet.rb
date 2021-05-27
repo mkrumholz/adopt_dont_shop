@@ -24,4 +24,8 @@ class Pet < ApplicationRecord
   def pending_application_id
     applications.where(status: :pending).pluck(:id).first
   end
+
+  def pet_application_status(app_id)
+    PetApplication.locate(id, app_id).status
+  end
 end
