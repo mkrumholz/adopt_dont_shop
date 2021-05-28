@@ -26,6 +26,9 @@ RSpec.describe Pet, type: :model do
 
     @app_2 = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :pending)
     @app_2.pets << @pet_1
+
+    @app_3 = Application.create!(name: 'New App', street_address: '1 NewApp Rd', city: 'Newton', state: 'MA', zip_code: '01010', description: 'Just cause.', status: :rejected)
+    @app_3.pets << @pet_2
   end
 
   describe 'class methods' do
@@ -76,5 +79,20 @@ RSpec.describe Pet, type: :model do
         expect(@pet_1.pet_application_status(@app_2.id)).to eq 'pending'
       end
     end
+
+    describe '.approved?' do
+      it 'returns true if the application has been approved' do
+        PetApplication.locate(@doge.id, @app_1.id).update(status: :approved)
+        expect(@doge.approved?(@app_1)).to eq true
+      end
+    end
+
+    describe '.rejected?' do
+      it 'returns true if the application has been rejected' do
+        PetApplication.locate(@pet_2.id, @app_3.id).update(status: :rejected)
+        expect(@pet_2.rejected?(@app_3)).to eq true
+      end
+    end
+
   end
 end
