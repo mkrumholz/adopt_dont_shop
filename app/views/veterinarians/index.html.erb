@@ -6,8 +6,7 @@
       <h3><%= vet.name %></h3>
       <p>Rating: <%= vet.review_rating %></p>
       <p>Practice: <%= vet.office_name %></p>
-      <%= link_to "Edit #{vet.name}", "/veterinarians/#{vet.id}/edit" %>
-      <%= link_to "Delete #{vet.name}", "/veterinarians/#{vet.id}", method: :delete %>
+      <%= render partial: 'partials/index_edit_delete', locals: { name: vet.name, edit_path: "/veterinarians/#{vet.id}/edit", delete_path: "/veterinarians/#{vet.id}"} %>
     </div>
   <% end %>
 </div>

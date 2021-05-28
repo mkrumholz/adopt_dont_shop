@@ -11,8 +11,7 @@
       <p>Breed: <%= pet.breed %></p>
       <p>Adoptable: </p>
       <p>You can find <%= pet.name %> at <%= pet.shelter_name %>!</p>
-      <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-      <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+      <%= render partial: 'partials/index_edit_delete', locals: { name: pet.name, edit_path: "/pets/#{pet.id}/edit", delete_path: "/pets/#{pet.id}"} %>
     </div>
   <% end %>
 </div>
