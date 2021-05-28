@@ -1,6 +1,6 @@
 <h1>Edit Pet</h1>
 <div class="container-sm mx-5 mb-4">
-  <%= bootstrap_form_with url: "/pets/#{@pet.id}", method: :patch, local: true do |f| %>
+  <%= bootstrap_form_with url: pet_path, method: :patch, local: true do |f| %>
     <%= f.text_field :name %>
     <%= f.text_field :breed %>
     <%= f.check_box :adoptable %>
