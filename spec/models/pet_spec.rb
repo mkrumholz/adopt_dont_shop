@@ -15,6 +15,7 @@ RSpec.describe Pet, type: :model do
 
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'New Shelter', city: 'Boulder, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
@@ -43,6 +44,10 @@ RSpec.describe Pet, type: :model do
     describe '#avg_adoptable_age' do
       it 'returns the average age of the pets' do
         expect(Pet.avg_adoptable_age). to eq 4
+      end
+
+      it 'returns 0 if no pets are adoptable' do
+        expect(@shelter_2.pets.avg_adoptable_age). to eq 0
       end
     end
 
