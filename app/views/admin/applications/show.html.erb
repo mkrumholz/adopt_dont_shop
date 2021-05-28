@@ -10,10 +10,9 @@
         <% @application.pets.each do |pet| %>
           <div id="pet-<%= pet.id %>">
             <li><a href="/pets/<%= pet.id %>"><%= pet.name %></a></li><br/>
-            <% status = pet.pet_application_status(@application.id) %>
-            <% if status == 'approved' %>
+            <% if pet.approved?(@application.id) %>
               <p>Approved!</p>
-            <% elsif status == 'rejected' %>
+            <% elsif pet.rejected?(@application.id) %>
               <p>Rejected.</p>
             <% elsif pet.adoptable == false %>
               <p>Too slow! Sorry, but this pet has been already approved for adoption.</p>
