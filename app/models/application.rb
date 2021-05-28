@@ -37,7 +37,7 @@ class Application < ApplicationRecord
 
   private
     def adopt_all_pets
-      pet_applications.each { |pet_app| pet_app.pet.update!(adoptable: false) }
+      pet_applications.adopt_all
     end
 
     def reject_all_applications

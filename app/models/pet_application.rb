@@ -18,4 +18,8 @@ class PetApplication < ApplicationRecord
     def self.reject_all
       update_all(status: :rejected)
     end
+
+    def self.adopt_all
+      all.each { |pet_app| pet_app.pet.update!(adoptable: false) }
+    end
 end
