@@ -15,6 +15,7 @@ RSpec.describe Pet, type: :model do
 
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'New Shelter', city: 'Boulder, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
@@ -25,6 +26,9 @@ RSpec.describe Pet, type: :model do
 
     @app_2 = Application.create!(name: 'Ms. Frizzle', street_address: '1 Magic Schoolbus Rd', city: 'Walkerville', state: 'MD', zip_code: '01010', description: 'Because I am a boss.', status: :pending)
     @app_2.pets << @pet_1
+
+    @app_3 = Application.create!(name: 'New App', street_address: '1 NewApp Rd', city: 'Newton', state: 'MA', zip_code: '01010', description: 'Just cause.', status: :rejected)
+    @app_3.pets << @pet_2
   end
 
   describe 'class methods' do
@@ -43,6 +47,10 @@ RSpec.describe Pet, type: :model do
     describe '#avg_adoptable_age' do
       it 'returns the average age of the pets' do
         expect(Pet.avg_adoptable_age). to eq 4
+      end
+
+      it 'returns 0 if no pets are adoptable' do
+        expect(@shelter_2.pets.avg_adoptable_age). to eq 0
       end
     end
 
@@ -71,5 +79,20 @@ RSpec.describe Pet, type: :model do
         expect(@pet_1.pet_application_status(@app_2.id)).to eq 'pending'
       end
     end
+
+    describe '.approved?' do
+      it 'returns true if the application has been approved' do
+        PetApplication.locate(@doge.id, @app_1.id).update(status: :approved)
+        expect(@doge.approved?(@app_1)).to eq true
+      end
+    end
+
+    describe '.rejected?' do
+      it 'returns true if the application has been rejected' do
+        PetApplication.locate(@pet_2.id, @app_3.id).update(status: :rejected)
+        expect(@pet_2.rejected?(@app_3)).to eq true
+      end
+    end
+
   end
 end

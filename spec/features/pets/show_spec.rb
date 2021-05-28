@@ -39,7 +39,7 @@ RSpec.describe 'the pet show' do
     visit "/pets/#{liz.id}"
 
     expect(liz.adoptable).to eq false
-    expect(page).to have_content false
+    expect(page).to have_content 'false'
 
     visit "/pets/#{cat.id}"
 

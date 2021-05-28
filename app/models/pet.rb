@@ -14,6 +14,7 @@ class Pet < ApplicationRecord
   end
 
   def self.avg_adoptable_age
+    return 0 if adoptable == []
     where(adoptable: true).average(:age)
   end
 
@@ -27,5 +28,13 @@ class Pet < ApplicationRecord
 
   def pet_application_status(app_id)
     PetApplication.locate(id, app_id).status
+  end
+
+  def approved?(app_id)
+    pet_application_status(app_id) == 'approved'
+  end
+
+  def rejected?(app_id)
+    pet_application_status(app_id) == 'rejected'
   end
 end

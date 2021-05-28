@@ -6,6 +6,6 @@
   <p><b>Available for adoption:</b> <%= @pet.adoptable %></p>
   <p><b>Location:</b> <%= @pet.name %> can be found at <%= @pet.shelter_name %>.</p><br/>
 
-  <p><%= link_to "Update #{@pet.name}", "/pets/#{@pet.id}/edit" %></p>
-  <p><%= link_to "Delete #{@pet.name}", "/pets/#{@pet.id}", method: :delete %></p>
+  <p><%= button_to "Update #{@pet.name}", edit_pet_path, class: "btn btn-secondary" %></p>
+  <p><%= button_to "Delete #{@pet.name}", pet_path, method: :delete, class: "btn btn-secondary"  %></p>
 </div>
