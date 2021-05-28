@@ -14,6 +14,7 @@ class Pet < ApplicationRecord
   end
 
   def self.avg_adoptable_age
+    return 0 if adoptable == []
     where(adoptable: true).average(:age)
   end
 
